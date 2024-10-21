@@ -58,7 +58,7 @@ VF=180000
 tasa=0.045
 anualidad=2500
 #Calculamos el numero de periodos
-noPeriodos=n(ValorFuturo=VF,r=tasa,A=Anualidad)
+noPeriodos=n(ValorFuturo=VF,r=tasa,A=anualidad)
 #Imprimimos el resultado
 noPeriodos
 ```
