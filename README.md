@@ -18,7 +18,7 @@ A=1000
 r=0.05
 t=5
 #Calculamos el valor futuro
-VF=ValorFuturo(A=anualidades,r=tasaPeriodo,n=numPagos)
+VF=ValorFuturo(A=a,r=tasa_f,n=numb)
 #Imprimimos el resultado
 ValorFuturo
 ```
