@@ -3,8 +3,8 @@ Con el siguiente codigo, puede usted cargar las funciones relativas a los calcul
 ```(r)
 source("https://raw.githubusercontent.com/Yuval-Reyes/proyectoAnualidadesVencidas/refs/heads/main/AnualidadesVencidas.R")
 ```
-Acontinuacion podremos ver ejemplos con el uso de las formulas:
-
+Diviremos la explicación de las formulas en dos partes, las que hacen uso del *valor futuro* y las que usan *valor actual*
+## valor futuro
 ### Valor futuro, conociendo la anualidad, tasa de interés del periodo y el número (plazo) de anualidades.
 Para realizar el ejemplo de valor futuro tenemos el siguiente enunciado:
 Una persona deposita al final de cada mes $ 1.000 al 5% interés mensual durante 5 meses. ¿Cuánto retira al final del 5to mes?
@@ -78,6 +78,79 @@ noPeriodos=144
 anualidad=900
 #Calculamos el numero de periodos
 tasa=r(ValorFuturo=VF,n=noPeriodos,A=anualidad)
+#Imprimimos el resultado
+tasa
+```
+## Valor actual
+
+### Valor actual, conociendo la anualidad, tasa de interés del periodo y el número (plazo) de anualidades.
+Suponga que una persona pide prestado para una nueva tableta para utilizarla en la escuela y desea pagarlos en 48 pagos quincenales de $66.41. Para esto la tienda departamental decide cobrarle una tasa de interés del 12% anualizada ¿A cuánto asciende el valor de la tableta adeudado?
+$A$=$66.41
+$r$=12%
+$n$=48
+
+Se realizan los calculos:
+```(r)
+# creamos objetos con valores de entrada:
+anualidades=66.41
+tasa=0.12
+noPeriodos=48
+#Calculamos el valor actual
+Va=ValorActual(A=anualidades,r=tasa,n=noPeriodos)
+#Imprimimos el resultado
+Va
+```
+### Anualidad, conociendo valor actual, tasa del periodo y número de pagos.
+usando el mismo ejemplo anterior podemos seguir con la demostracion
+Donde:
+$VA$=$3,000
+$r$=12%
+$n$=48 meses
+
+Se realizan los calculos:
+```(r)
+# creamos objetos con valores de entrada:
+ValorAct=3000
+tasa=0.12
+noPeriodos=48
+#Calculamos la anualidad
+anualidad=A_va(VA=ValorAct,r=tasa,n=noPeriodos)
+#Imprimimos el resultado
+anualidad
+```
+### Número de pagos o plazo, conociendo valor actual, número de pagos y tasa del periodo.
+ahora aplicando el ejemplo de la tableta para obtener el numero de periodos seria:
+
+$VA$=3,000
+$r$=12%
+$A$= $66.41
+
+Se realizan los calculos:
+```(r)
+# creamos objetos con valores de entrada:
+ValorAct=3000
+tasa=0.12
+anualidad=66.41
+#Calculamos el numero de periodos
+noPeriodos=n_va(VA=ValorAct,r=tasa,A=anualidad)
+#Imprimimos el resultado
+noPeriodos
+```
+### Tasa del periodo, conociendo valor actual, número de pagos y monto de la anualidad.
+Por ultimo usaremos el ejemplo para calcular la tasa del periodo:
+Donde:
+$VA$=3,000
+$n$=48 mese
+$A$=61.44
+
+Se realizan los calculos:
+```(r)
+# creamos objetos con valores de entrada:
+ValorAct=3,000
+noPeriodos=48
+anualidad=61.44
+#Calculamos el numero de periodos
+tasa=r_va(VA=ValorAct,n=noPeriodos,A=anualidad)
 #Imprimimos el resultado
 tasa
 ```
