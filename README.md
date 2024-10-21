@@ -24,3 +24,22 @@ VF=ValorFuturo(A=anualidades,r=tasa,n=noPeriodos)
 #Imprimimos el resultado
 VF
 ```
+### Anualidad, conociendo valor futuro, tasa del periodo y número de pagos.
+Para el ejemplo de anualidad tenemos el enunciado siguiente:
+Una persona desea acumular $200,000 en 15 años mediante pagos mensuales al final de cada mes bajo una anualidad vencida con una tasa de interés del 3% anual, compuesta mensualmente. ¿Cuánto debe pagar cada mes?
+Donde:
+$VF$=$1,000.00
+$r$=5%
+$n$=5 meses
+
+Se realizan los calculos:
+```(r)
+# creamos objetos con valores de entrada:
+VF=200000
+tasa=0.03
+noPeriodos=180
+#Calculamos la anualidad
+anualidad=A(ValorFuturo=VF,r=tasa,n=noPeriodos)
+#Imprimimos el resultado
+anualidad
+```
