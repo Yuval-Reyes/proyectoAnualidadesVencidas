@@ -14,11 +14,11 @@ $n$=5 meses
 Se realizan los calculos:
 ```(r)
 # creamos objetos con valores de entrada:
-a=1000
+anualidades=1000
 tasa=0.05
-numb=5
+noPeriodos=5
 #Calculamos el valor futuro
-VF=ValorFuturo(A=a,r=tasa_f,n=numb)
+ValorFuturo=VF(A=anualidades,r=tasa,n=noPeriodos)
 #Imprimimos el resultado
 ValorFuturo
 ```
