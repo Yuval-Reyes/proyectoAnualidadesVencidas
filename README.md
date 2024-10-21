@@ -96,7 +96,7 @@ anualidades=66.41
 tasa=0.12
 noPeriodos=48
 #Calculamos el valor actual
-Va=ValorActual(A=anualidades,r=tasa,n=noPeriodos)
+Va=VA(A=anualidades,r=tasa,n=noPeriodos)
 #Imprimimos el resultado
 Va
 ```
