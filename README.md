@@ -20,7 +20,7 @@ anualidades=1000
 tasa=0.05
 noPeriodos=5
 #Calculamos el valor futuro
-ValorFuturo=ValorFinal(A=anualidades,r=tasa,n=noPeriodos)
+VF=ValorFuturo(A=anualidades,r=tasa,n=noPeriodos)
 #Imprimimos el resultado
-ValorFuturo
+VF
 ```
