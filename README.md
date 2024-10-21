@@ -1,6 +1,8 @@
 # proyectoAnualidadesVencidas
 Con el siguiente codigo, puede usted cargar las funciones relativas a los calculos de interes simple:
+```(r)
 source("https://raw.githubusercontent.com/Yuval-Reyes/proyectoAnualidadesVencidas/refs/heads/main/AnualidadesVencidas.R")
+```
 Acontinuacion podremos ver ejemplos con el uso de las formulas:
 
 ### Valor futuro, conociendo la anualidad, tasa de interés del periodo y el número (plazo) de anualidades.
