@@ -1,7 +1,7 @@
 # proyectoAnualidadesVencidas
 Con el siguiente codigo, puede usted cargar las funciones relativas a los calculos de interes simple:
 ```(r)
-source("https://raw.githubusercontent.com/Yuval-Reyes/proyectoAnualidadesVencidas/refs/heads/main/FuncionesAnualidadesVencidas.R")
+source("https://raw.githubusercontent.com/Yuval-Reyes/proyectoAnualidadesVencidas/refs/heads/main/FuncionesAnualidadesVencidas%20(1).R")
 ```
 Diviremos la explicación de las formulas en dos partes, las que hacen uso del *valor futuro* y las que usan *valor actual*
 ## valor futuro
