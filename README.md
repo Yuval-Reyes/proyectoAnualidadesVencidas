@@ -117,7 +117,7 @@ TpVA=48
 rVA=0.12/TpVA
 VAt=3000
 # calculamos el valor de la anualidad
-Ava=AnualidadVAt(rVA=rVA,TpVA=TpVA,VAt=VAt)
+Ava=AnualidadVA(rVA=rVA,TpVA=TpVA,VAt=VAt)
 # imprimimos el resultado
 Ava
 ```
@@ -153,7 +153,7 @@ VAt=3000
 TpVA=48
 Ava=66.41
 # calculamos la tasa del periodo
-rVA=TasaPerVA(VAt=VAt,TpVA=TpVA,Ava=Ava)
+rVA=TasaPVA(VAt=VAt,TpVA=TpVA,Ava=Ava)
 # imprimimos el resultado
 rVA
 ```
