@@ -30,8 +30,8 @@ Para el ejemplo de anualidad tenemos el enunciado siguiente:
 Una persona desea acumular $200,000 en 15 años mediante pagos mensuales al final de cada mes bajo una anualidad vencida con una tasa de interés del 3% anual, compuesta mensualmente. ¿Cuánto debe pagar cada mes?
 Donde:
 $VF$=$200000
-$r$=3%
-$n$=180 meses
+$i$=3%
+$t$=180 meses
 
 Se realizan los calculos:
 ```(r)
@@ -50,19 +50,20 @@ Para este ejemplo tenemos el enunciado:
 Un individuo realiza pagos mensuales de $2,500 al final de cada mes en una cuenta que ofrece una tasa de interés del 4.5% anual, compuesta mensualmente. Si desea acumular $180,000, ¿cuántos meses debe realizar estos pagos bajo una anualidad vencida?
 Donde:
 $VF$=180,000
-$r$=4.5%
+$i$=4.5%
 $A$=2,500
 
 Se realizan los calculos:
 ```(r)
-# creamos objetos con valores de entrada:
-VF=180000
-tasa=0.045
-anualidad=2500
-#Calculamos el numero de periodos
-noPeriodos=n(ValorFuturo=VF,r=tasa,A=anualidad)
-#Imprimimos el resultado
-noPeriodos
+# Creamos objetos con valores de entrada
+VFt=180000
+i=0.045
+r=0.045/12
+A=2500
+# calculamos el numero de plazos
+Tp=Plazos(VFt=VFt,r=r,A=A)
+# imprimimos el resultado
+Tp
 ```
 ### Tasa del periodo, conociendo valor futuro, número de pagos y monto de la anualidad.
 Para el siguiente ejemplo:
