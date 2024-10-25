@@ -94,14 +94,14 @@ $n$=48
 
 Se realizan los calculos:
 ```(r)
-# creamos objetos con valores de entrada:
-anualidades=66.41
-tasa=0.12
-noPeriodos=48
-#Calculamos el valor actual
-Va=VA(A=anualidades,r=tasa,n=noPeriodos)
-#Imprimimos el resultado
-Va
+# Creamos objetos con valores de entrada
+TpVA=48
+rVA=0.12/TpVA
+Ava=66.41
+# calculamos el valor actual
+VAt=ValorActual(rVA=rVA,TpVA=TpVA,Ava=Ava)
+# imprimimos el resultado
+VAt
 ```
 ### Anualidad, conociendo valor actual, tasa del periodo y número de pagos.
 usando el mismo ejemplo anterior podemos seguir con la demostracion
@@ -112,14 +112,14 @@ $n$=48 meses
 
 Se realizan los calculos:
 ```(r)
-# creamos objetos con valores de entrada:
-ValorAct=3000
-tasa=0.12
-noPeriodos=48
-#Calculamos la anualidad
-anualidad=A_va(VA=ValorAct,r=tasa,n=noPeriodos)
-#Imprimimos el resultado
-anualidad
+# Creamos objetos con valores de entrada
+TpVA=48
+rVA=0.12/TpVA
+VAt=3000
+# calculamos el valor de la anualidad
+Ava=AnualidadVAt(rVA=rVA,TpVA=TpVA,VAt=VAt)
+# imprimimos el resultado
+Ava
 ```
 ### Número de pagos o plazo, conociendo valor actual, número de pagos y tasa del periodo.
 ahora aplicando el ejemplo de la tableta para obtener el numero de periodos seria:
@@ -130,30 +130,30 @@ $A$= $66.41
 
 Se realizan los calculos:
 ```(r)
-# creamos objetos con valores de entrada:
-ValorAct=3000
-tasa=0.12
-anualidad=66.41
-#Calculamos el numero de periodos
-noPeriodos=n_va(VA=ValorAct,r=tasa,A=anualidad)
-#Imprimimos el resultado
-noPeriodos
+# Creamos objetos con valores de entrada
+rVA=0.12/48
+Ava=66.41
+VAt=3000
+# calculamos el valor de la anualidad
+TpVA=PlazosVA(rVA=rVA,VAt=VAt,Ava=Ava)
+# imprimimos el resultado
+TpVA
 ```
 ### Tasa del periodo, conociendo valor actual, número de pagos y monto de la anualidad.
 Por ultimo usaremos el ejemplo para calcular la tasa del periodo:
 Donde:
 $VA$=3,000
-$n$=48 mese
+$n$=48 meses
 $A$=61.44
 
 Se realizan los calculos:
 ```(r)
-# creamos objetos con valores de entrada:
-ValorAct=3,000
-noPeriodos=48
-anualidad=61.44
-#Calculamos el numero de periodos
-tasa=r_va(VA=ValorAct,n=noPeriodos,A=anualidad)
-#Imprimimos el resultado
-tasa
+# Creamos objetos con valores de entrada
+VAt=3000
+TpVA=48
+Ava=66.41
+# calculamos la tasa del periodo
+rVA=TasaPerVA(VAt=VAt,TpVA=TpVA,Ava=Ava)
+# imprimimos el resultado
+rVA
 ```
