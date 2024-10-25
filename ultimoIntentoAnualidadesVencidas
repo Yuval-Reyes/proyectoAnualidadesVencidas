@@ -1,0 +1,73 @@
+# se presentan las funciones de anualidades vencidas
+#autor: Dana Yuval Reyes González
+#v1.0: 20 octubre de 2024
+
+# Valor futuro con formula de Anualidades
+ValorFuturo=function(A,r,Tp){
+  xVF=A*((((1+r)^Tp)-1)/r)
+  return(xVF)
+}
+# Anualidad con formula de Anualidades
+Anualidad=function(VF,r,Tp){
+  xA=VF/((((1+r)^Tp)-1)/r)
+  return(xA)
+}
+
+# Numero de plazos
+Plazos=function(VF,r,A){
+  Tp=log(((VF*r)/A)+1)/log(1+r)
+  xTp=round(Tp,0)
+  return(xTp)
+}
+
+# Tasa del periodo
+TasaPer=function(VF,A,Tp){
+  ecuacion = function(r) {
+    LadoIzquierdo = VF / A
+    LadoDerecho = ((1 + r) ^ Tp - 1) / r
+    return(LadoIzquierdo - LadoDerecho)
+  }
+  
+  # Usar la función uniroot para encontrar la raíz de la ecuación
+  resultado = uniroot(ecuacion, lower = 0.0000001, upper = 1)
+  
+  # Mostrar el resultado
+  r= resultado$root
+  return(r)
+  
+}
+
+# Valor actual
+ValorActual=function(Ava,rVA,TpVA){
+  VA=Ava*((1-(1+rVA)^-TpVA)/rVA)
+  xVA=round(VA,0)
+  return(xVA)
+}
+# Anualidad con valor actual
+AnualidadVA=function(VA,rVA,TpVA){
+  xAva=VA/((1-(1+rVA)^-TpVA)/rVA)
+  return(xAva)
+}
+# Plazos con valor actual
+PlazosVA=function(VA,rVA,Ava){
+  TpVA=-log(1-((VA*rVA)/Ava))/log(1+rVA)
+  xTpVA=round(TpVA,0)
+  return(xTpVA)
+}
+
+# Tasa de periodo con Valor Actual
+TasaPerVA=function(VA,TpVA,Ava){
+  ecuacion2 = function(rVA) {
+    LadoIzquierdo = VA / Ava
+    LadoDerecho = (1-((1+rVA)^-TpVA))/rVA
+    return(LadoIzquierdo - LadoDerecho)
+  }
+  
+  # Usar la función uniroot para encontrar la raíz de la ecuación
+  resultado = uniroot(ecuacion2, lower = 0.000001, upper = 1)
+  
+  # Mostrar el resultado
+  rVA= resultado$root
+  return(rVA)
+  
+}
