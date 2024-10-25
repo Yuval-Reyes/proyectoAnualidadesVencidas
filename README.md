@@ -76,9 +76,9 @@ $A$=900
 Se realizan los calculos:
 ```(r)
 # Creamos objetos con valores de entrada
-VFt=102009.1
-Tp=60
-A=1500
+VFt=120000
+Tp=0.045
+A=900
 # calculamos la tasa del periodo
 r=TasaPer(VFt=VFt,Tp=Tp,A=A)
 # imprimimos el resultado
