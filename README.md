@@ -36,12 +36,12 @@ $t$=180 meses
 Se realizan los calculos:
 ```(r)
 # Creamos objetos con valores de entrada
-VFt=200000
+VF=200000
 i=0.03
 r=0.03/12
 Tp=180
 # calculamos el valor de la anualidad
-A=Anualidad(VFt=VFt,r=r,Tp=Tp)
+A=Anualidad(VF=VF,r=r,Tp=Tp)
 # imprimimos el resultado
 A
 ```
@@ -56,12 +56,12 @@ $A$=2,500
 Se realizan los calculos:
 ```(r)
 # Creamos objetos con valores de entrada
-VFt=180000
+VF=180000
 i=0.045
 r=0.045/12
 A=2500
 # calculamos el numero de plazos
-Tp=Plazos(VFt=VFt,r=r,A=A)
+Tp=Plazos(VF=VF,r=r,A=A)
 # imprimimos el resultado
 Tp
 ```
@@ -76,11 +76,11 @@ $A$=900
 Se realizan los calculos:
 ```(r)
 # Creamos objetos con valores de entrada
-VFt=120000
+VF=120000
 Tp=60
 A=900
 # calculamos la tasa del periodo
-r=TasaPer(VFt=VFt,Tp=Tp,A=A)
+r=TasaPer(VF=VF,Tp=Tp,A=A)
 # imprimimos el resultado
 r
 ```
@@ -115,9 +115,9 @@ Se realizan los calculos:
 # Creamos objetos con valores de entrada
 TpVA=48
 rVA=0.12/TpVA
-VAt=3000
+VA=3000
 # calculamos el valor de la anualidad
-Ava=AnualidadVA(rVA=rVA,TpVA=TpVA,VAt=VAt)
+Ava=AnualidadVA(rVA=rVA,TpVA=TpVA,VA=VA)
 # imprimimos el resultado
 Ava
 ```
@@ -133,9 +133,9 @@ Se realizan los calculos:
 # Creamos objetos con valores de entrada
 rVA=0.12/48
 Ava=66.41
-VAt=3000
+VA=3000
 # calculamos el valor de la anualidad
-TpVA=PlazosVA(rVA=rVA,VAt=VAt,Ava=Ava)
+TpVA=PlazosVA(rVA=rVA,VA=VA,Ava=Ava)
 # imprimimos el resultado
 TpVA
 ```
@@ -149,11 +149,11 @@ $A$=61.44
 Se realizan los calculos:
 ```(r)
 # Creamos objetos con valores de entrada
-VAt=3000
+VA=3000
 TpVA=48
 Ava=66.41
 # calculamos la tasa del periodo
-rVA=TasaPeriodoVA(VAt=VAt,TpVA=TpVA,Ava=Ava)
+rVA=TasaPeriodoVA(VA=VA,TpVA=TpVA,Ava=Ava)
 # imprimimos el resultado
 rVA
 ```
