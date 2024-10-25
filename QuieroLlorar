@@ -1,0 +1,1083 @@
+# se presentan las funciones de anualidades vencidas
+#autor: Dana Yuval Reyes González
+#v1.0: 20 octubre de 2024
+
+# Valor futuro con formula de Anualidades
+ValorFuturo=function(A,r,Tp){
+  xVFt=A*((((1+r)^Tp)-1)/r)
+  return(xVFt)
+}
+# Anualidad con formula de Anualidades
+Anualidad=function(VFt,r,Tp){
+  xA=VFt/((((1+r)^Tp)-1)/r)
+  return(xA)
+}
+
+# Numero de plazos
+Plazos=function(VFt,r,A){
+  Tp=log(((VFt*r)/A)+1)/log(1+r)
+  xTp=round(Tp,0)
+  return(xTp)
+}
+
+# Tasa del periodo
+tasaAnualidadVencidaVF=function(VF,A,Tpers,umbral=10*(10^-18)){
+  
+  r=0.01
+  iteraciones=0
+  
+  izquierda=VF/A
+  derecha=(((1+r)^Tpers)-1)/r
+  diferencia=izquierda-derecha
+  
+  if (diferencia>0){
+    # Cuando la r inicial es menor a lo deseado:  
+    # Algoritmo de alza de tasa:
+    
+    iteraciones=0
+    r0=r
+    while (diferencia>0){
+      r1=r  
+      iteraciones=iteraciones+1  
+      r=r*1.01
+      
+      izquierda=VF/A
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      cat("\f")
+      print(paste0("Iteración de alza tasa:",iteraciones))
+      
+      r2=r
+      
+    }  
+    
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    diferencia=umbral
+    # algoritmo de la bisección:    
+    while (abs(diferenciaTasa)>umbral){
+      
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VF/A
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r1
+        r2=r
+        
+      } else {
+        r2=r2  
+        r1=r
+        
+      }
+      diferenciaTasa=r-r0
+      r0=r
+      cat("\f")
+      print(paste0("Iteración de bisección: ",iteraciones))
+    }
+    
+  } else {
+    # Cuando la r inicial es mayor a lo deseado:  
+    # Algoritmo de bajada de tasa:
+    iteraciones=0
+    r0=r
+    while (diferencia<0){
+      r2=r 
+      iteraciones=iteraciones+1  
+      r=r/1.01
+      
+      izquierda=VF/A
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      
+      cat("\f")
+      print(paste0("Iteración de baja de tasa:",iteraciones))
+      
+      r1=r
+      
+    }  
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    r0=r
+    
+    diferencia=umbral    
+    # algoritmo de la bisección:      
+    while (abs(diferenciaTasa)>umbral){
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VF/A
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r
+        r2=r2
+        
+      } else {
+        r2=r  
+        r1=r1
+        
+      }
+      
+      diferenciaTasa=r-r0
+      r0=r
+      
+      cat("\f")
+      print(paste0("Iteración de biseccción:",iteraciones))
+    }
+    
+    
+    
+  }
+  
+  # Genera objeto de salida:
+  objetoTasa=list(Iteraciones=iteraciones,tasa=r)
+  
+  cat("\f")
+  print(paste0("Total de iteraciones realizadas: ",iteraciones))
+  
+  return(objetoTasa) 
+  
+}
+
+#====
+# tasa anualidad vencida con VA
+
+tasaAnualidadVencidaVA=function(VA,A,Tpers,umbral=10*(10^-18)){
+  
+  r=0.001
+  iteraciones=0
+  
+  izquierda=VA/A
+  derecha=(1-((1+r)^-Tpers))/r
+  diferencia=izquierda-derecha
+  
+  if (diferencia<0){
+    # Cuando la r inicial es menor a lo deseado:  
+    # Algoritmo de alza de tasa:
+    
+    iteraciones=0
+    r0=r
+    while (diferencia<0){
+      r1=r  
+      iteraciones=iteraciones+1  
+      r=r*1.01
+      
+      izquierda=VA/A
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      cat("\f")
+      print(paste0("Iteración de alza tasa:",iteraciones))
+      
+      r2=r
+      
+    }  
+    
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    diferencia=umbral
+    # algoritmo de la bisección:    
+    while (abs(diferenciaTasa)>umbral){
+      
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VA/A
+      derecha=derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r1
+        r2=r
+        
+      } else {
+        r2=r2  
+        r1=r
+        
+      }
+      diferenciaTasa=r-r0
+      r0=r
+      cat("\f")
+      print(paste0("Iteración de bisección: ",iteraciones))
+    }
+    
+  } else {
+    # Cuando la r inicial es mayor a lo deseado:  
+    # Algoritmo de bajada de tasa:
+    iteraciones=0
+    r0=r
+    while (diferencia>0){
+      r2=r 
+      iteraciones=iteraciones+1  
+      r=r/1.01
+      
+      izquierda=VA/A
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      cat("\f")
+      print(paste0("Iteración de baja de tasa:",iteraciones))
+      
+      r1=r
+      
+    }  
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    r0=r
+    
+    diferencia=umbral    
+    # algoritmo de la bisección:      
+    while (abs(diferenciaTasa)>umbral){
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VA/A
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r
+        r2=r2
+        
+      } else {
+        r2=r  
+        r1=r1
+        
+      }
+      
+      diferenciaTasa=r-r0
+      r0=r
+      
+      cat("\f")
+      print(paste0("Iteración de biseccción:",iteraciones))
+    }
+    
+    
+    
+  }
+  
+  
+  
+  # Genera objeto de salida:
+  objetoTasa=list(Iteraciones=iteraciones,tasa=r)
+  
+  cat("\f")
+  print(paste0("Total de iteraciones realizadas: ",iteraciones))
+  
+  return(objetoTasa) 
+  
+}
+
+
+#=======
+# tasa anualidad anticipada con VF
+
+
+tasaAnualidadAnticipadaVF=function(VF,A,Tpers,umbral=10*(10^-18)){
+  
+  r=0.01
+  iteraciones=0
+  
+  izquierda=VF/(A*(1+r))
+  derecha=(((1+r)^Tpers)-1)/r
+  diferencia=izquierda-derecha
+  
+  if (diferencia>0){
+    # Cuando la r inicial es menor a lo deseado:  
+    # Algoritmo de alza de tasa:
+    
+    iteraciones=0
+    r0=r
+    while (diferencia>0){
+      r1=r  
+      iteraciones=iteraciones+1  
+      r=r*1.01
+      
+      izquierda=VF/(A*(1+r))
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      cat("\f")
+      print(paste0("Iteración de alza tasa:",iteraciones))
+      
+      r2=r
+      
+    }  
+    
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    diferencia=umbral
+    # algoritmo de la bisección:    
+    while (abs(diferenciaTasa)>umbral){
+      
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VF/(A*(1+r))
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r1
+        r2=r
+        
+      } else {
+        r2=r2  
+        r1=r
+        
+      }
+      diferenciaTasa=r-r0
+      r0=r
+      cat("\f")
+      print(paste0("Iteración de bisección: ",iteraciones))
+    }
+    
+  } else {
+    # Cuando la r inicial es mayor a lo deseado:  
+    # Algoritmo de bajada de tasa:
+    iteraciones=0
+    r0=r
+    while (diferencia<0){
+      r2=r 
+      iteraciones=iteraciones+1  
+      r=r/1.01
+      
+      izquierda=VF/(A*(1+r))
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      
+      cat("\f")
+      print(paste0("Iteración de baja de tasa:",iteraciones))
+      
+      r1=r
+      
+    }  
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    r0=r
+    
+    diferencia=umbral    
+    # algoritmo de la bisección:      
+    while (abs(diferenciaTasa)>umbral){
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VF/(A*(1+r))
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r
+        r2=r2
+        
+      } else {
+        r2=r  
+        r1=r1
+        
+      }
+      
+      diferenciaTasa=r-r0
+      r0=r
+      
+      cat("\f")
+      print(paste0("Iteración de biseccción:",iteraciones))
+    }
+    
+    
+    
+  }
+  
+  # Genera objeto de salida:
+  objetoTasa=list(Iteraciones=iteraciones,tasa=r)
+  
+  cat("\f")
+  print(paste0("Total de iteraciones realizadas: ",iteraciones))
+  
+  return(objetoTasa) 
+  
+}
+
+#====
+# tasa anualidad anticipada con VA
+
+tasaAnualidadAnticipadaVA=function(VA,A,Tpers,umbral=10*(10^-18)){
+  
+  r=0.001
+  iteraciones=0
+  
+  izquierda=VA/(A*(1+r))
+  derecha=(1-((1+r)^-Tpers))/r
+  diferencia=izquierda-derecha
+  
+  if (diferencia<0){
+    # Cuando la r inicial es menor a lo deseado:  
+    # Algoritmo de alza de tasa:
+    
+    iteraciones=0
+    r0=r
+    while (diferencia<0){
+      r1=r  
+      iteraciones=iteraciones+1  
+      r=r*1.01
+      
+      izquierda=VA/(A*(1+r))
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      cat("\f")
+      print(paste0("Iteración de alza tasa:",iteraciones))
+      
+      r2=r
+      
+    }  
+    
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    diferencia=umbral
+    # algoritmo de la bisección:    
+    while (abs(diferenciaTasa)>umbral){
+      
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VA/(A*(1+r))
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r1
+        r2=r
+        
+      } else {
+        r2=r2  
+        r1=r
+        
+      }
+      diferenciaTasa=r-r0
+      r0=r
+      cat("\f")
+      print(paste0("Iteración de bisección: ",iteraciones))
+    }
+    
+  } else {
+    # Cuando la r inicial es mayor a lo deseado:  
+    # Algoritmo de bajada de tasa:
+    iteraciones=0
+    r0=r
+    while (diferencia>0){
+      r2=r 
+      iteraciones=iteraciones+1  
+      r=r/1.01
+      
+      izquierda=VA/(A*(1+r))
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      cat("\f")
+      print(paste0("Iteración de baja de tasa:",iteraciones))
+      
+      r1=r
+      
+    }  
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    r0=r
+    
+    diferencia=umbral    
+    # algoritmo de la bisección:      
+    while (abs(diferenciaTasa)>umbral){
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VA/(A*(1+r))
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r
+        r2=r2
+        
+      } else {
+        r2=r  
+        r1=r1
+        
+      }
+      
+      diferenciaTasa=r-r0
+      r0=r
+      
+      cat("\f")
+      print(paste0("Iteración de biseccción:",iteraciones))
+    }
+    
+    
+    
+  }
+  
+  
+  
+  # Genera objeto de salida:
+  objetoTasa=list(Iteraciones=iteraciones,tasa=r)
+  
+  cat("\f")
+  print(paste0("Total de iteraciones realizadas: ",iteraciones))
+  
+  return(objetoTasa) 
+  
+}
+
+# Valor actual
+ValorActual=function(Ava,rVA,TpVA){
+  VAt=Ava*((1-(1+rVA)^-TpVA)/rVA)
+  xVAt=round(VAt,0)
+  return(xVAt)
+}
+# Anualidad con valor actual
+AnualidadVA=function(VAt,rVA,TpVA){
+  xAva=VAt/((1-(1+rVA)^-TpVA)/rVA)
+  return(xAva)
+}
+# Plazos con valor actual
+PlazosVA=function(VAt,rVA,Ava){
+  TpVA=-log(1-((VAt*rVA)/Ava))/log(1+rVA)
+  xTpVA=round(TpVA,0)
+  return(xTpVA)
+}
+
+# Tasa de periodo con Valor Actual
+tasaAnualidadVencidaVF=function(VF,A,Tpers,umbral=10*(10^-18)){
+  
+  r=0.01
+  iteraciones=0
+  
+  izquierda=VF/A
+  derecha=(((1+r)^Tpers)-1)/r
+  diferencia=izquierda-derecha
+  
+  if (diferencia>0){
+    # Cuando la r inicial es menor a lo deseado:  
+    # Algoritmo de alza de tasa:
+    
+    iteraciones=0
+    r0=r
+    while (diferencia>0){
+      r1=r  
+      iteraciones=iteraciones+1  
+      r=r*1.01
+      
+      izquierda=VF/A
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      cat("\f")
+      print(paste0("Iteración de alza tasa:",iteraciones))
+      
+      r2=r
+      
+    }  
+    
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    diferencia=umbral
+    # algoritmo de la bisección:    
+    while (abs(diferenciaTasa)>umbral){
+      
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VF/A
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r1
+        r2=r
+        
+      } else {
+        r2=r2  
+        r1=r
+        
+      }
+      diferenciaTasa=r-r0
+      r0=r
+      cat("\f")
+      print(paste0("Iteración de bisección: ",iteraciones))
+    }
+    
+  } else {
+    # Cuando la r inicial es mayor a lo deseado:  
+    # Algoritmo de bajada de tasa:
+    iteraciones=0
+    r0=r
+    while (diferencia<0){
+      r2=r 
+      iteraciones=iteraciones+1  
+      r=r/1.01
+      
+      izquierda=VF/A
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      
+      cat("\f")
+      print(paste0("Iteración de baja de tasa:",iteraciones))
+      
+      r1=r
+      
+    }  
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    r0=r
+    
+    diferencia=umbral    
+    # algoritmo de la bisección:      
+    while (abs(diferenciaTasa)>umbral){
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VF/A
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r
+        r2=r2
+        
+      } else {
+        r2=r  
+        r1=r1
+        
+      }
+      
+      diferenciaTasa=r-r0
+      r0=r
+      
+      cat("\f")
+      print(paste0("Iteración de biseccción:",iteraciones))
+    }
+    
+    
+    
+  }
+  
+  # Genera objeto de salida:
+  objetoTasa=list(Iteraciones=iteraciones,tasa=r)
+  
+  cat("\f")
+  print(paste0("Total de iteraciones realizadas: ",iteraciones))
+  
+  return(objetoTasa) 
+  
+}
+
+#====
+# tasa anualidad vencida con VA
+
+tasaAnualidadVencidaVA=function(VA,A,Tpers,umbral=10*(10^-18)){
+  
+  r=0.001
+  iteraciones=0
+  
+  izquierda=VA/A
+  derecha=(1-((1+r)^-Tpers))/r
+  diferencia=izquierda-derecha
+  
+  if (diferencia<0){
+    # Cuando la r inicial es menor a lo deseado:  
+    # Algoritmo de alza de tasa:
+    
+    iteraciones=0
+    r0=r
+    while (diferencia<0){
+      r1=r  
+      iteraciones=iteraciones+1  
+      r=r*1.01
+      
+      izquierda=VA/A
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      cat("\f")
+      print(paste0("Iteración de alza tasa:",iteraciones))
+      
+      r2=r
+      
+    }  
+    
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    diferencia=umbral
+    # algoritmo de la bisección:    
+    while (abs(diferenciaTasa)>umbral){
+      
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VA/A
+      derecha=derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r1
+        r2=r
+        
+      } else {
+        r2=r2  
+        r1=r
+        
+      }
+      diferenciaTasa=r-r0
+      r0=r
+      cat("\f")
+      print(paste0("Iteración de bisección: ",iteraciones))
+    }
+    
+  } else {
+    # Cuando la r inicial es mayor a lo deseado:  
+    # Algoritmo de bajada de tasa:
+    iteraciones=0
+    r0=r
+    while (diferencia>0){
+      r2=r 
+      iteraciones=iteraciones+1  
+      r=r/1.01
+      
+      izquierda=VA/A
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      cat("\f")
+      print(paste0("Iteración de baja de tasa:",iteraciones))
+      
+      r1=r
+      
+    }  
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    r0=r
+    
+    diferencia=umbral    
+    # algoritmo de la bisección:      
+    while (abs(diferenciaTasa)>umbral){
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VA/A
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r
+        r2=r2
+        
+      } else {
+        r2=r  
+        r1=r1
+        
+      }
+      
+      diferenciaTasa=r-r0
+      r0=r
+      
+      cat("\f")
+      print(paste0("Iteración de biseccción:",iteraciones))
+    }
+    
+    
+    
+  }
+  
+  
+  
+  # Genera objeto de salida:
+  objetoTasa=list(Iteraciones=iteraciones,tasa=r)
+  
+  cat("\f")
+  print(paste0("Total de iteraciones realizadas: ",iteraciones))
+  
+  return(objetoTasa) 
+  
+}
+
+
+#=======
+# tasa anualidad anticipada con VF
+
+
+tasaAnualidadAnticipadaVF=function(VF,A,Tpers,umbral=10*(10^-18)){
+  
+  r=0.01
+  iteraciones=0
+  
+  izquierda=VF/(A*(1+r))
+  derecha=(((1+r)^Tpers)-1)/r
+  diferencia=izquierda-derecha
+  
+  if (diferencia>0){
+    # Cuando la r inicial es menor a lo deseado:  
+    # Algoritmo de alza de tasa:
+    
+    iteraciones=0
+    r0=r
+    while (diferencia>0){
+      r1=r  
+      iteraciones=iteraciones+1  
+      r=r*1.01
+      
+      izquierda=VF/(A*(1+r))
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      cat("\f")
+      print(paste0("Iteración de alza tasa:",iteraciones))
+      
+      r2=r
+      
+    }  
+    
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    diferencia=umbral
+    # algoritmo de la bisección:    
+    while (abs(diferenciaTasa)>umbral){
+      
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VF/(A*(1+r))
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r1
+        r2=r
+        
+      } else {
+        r2=r2  
+        r1=r
+        
+      }
+      diferenciaTasa=r-r0
+      r0=r
+      cat("\f")
+      print(paste0("Iteración de bisección: ",iteraciones))
+    }
+    
+  } else {
+    # Cuando la r inicial es mayor a lo deseado:  
+    # Algoritmo de bajada de tasa:
+    iteraciones=0
+    r0=r
+    while (diferencia<0){
+      r2=r 
+      iteraciones=iteraciones+1  
+      r=r/1.01
+      
+      izquierda=VF/(A*(1+r))
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      
+      cat("\f")
+      print(paste0("Iteración de baja de tasa:",iteraciones))
+      
+      r1=r
+      
+    }  
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    r0=r
+    
+    diferencia=umbral    
+    # algoritmo de la bisección:      
+    while (abs(diferenciaTasa)>umbral){
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VF/(A*(1+r))
+      derecha=(((1+r)^Tpers)-1)/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r
+        r2=r2
+        
+      } else {
+        r2=r  
+        r1=r1
+        
+      }
+      
+      diferenciaTasa=r-r0
+      r0=r
+      
+      cat("\f")
+      print(paste0("Iteración de biseccción:",iteraciones))
+    }
+    
+    
+    
+  }
+  
+  # Genera objeto de salida:
+  objetoTasa=list(Iteraciones=iteraciones,tasa=r)
+  
+  cat("\f")
+  print(paste0("Total de iteraciones realizadas: ",iteraciones))
+  
+  return(objetoTasa) 
+  
+}
+
+#====
+# tasa anualidad anticipada con VA
+
+tasaAnualidadAnticipadaVA=function(VA,A,Tpers,umbral=10*(10^-18)){
+  
+  r=0.001
+  iteraciones=0
+  
+  izquierda=VA/(A*(1+r))
+  derecha=(1-((1+r)^-Tpers))/r
+  diferencia=izquierda-derecha
+  
+  if (diferencia<0){
+    # Cuando la r inicial es menor a lo deseado:  
+    # Algoritmo de alza de tasa:
+    
+    iteraciones=0
+    r0=r
+    while (diferencia<0){
+      r1=r  
+      iteraciones=iteraciones+1  
+      r=r*1.01
+      
+      izquierda=VA/(A*(1+r))
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      cat("\f")
+      print(paste0("Iteración de alza tasa:",iteraciones))
+      
+      r2=r
+      
+    }  
+    
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    diferencia=umbral
+    # algoritmo de la bisección:    
+    while (abs(diferenciaTasa)>umbral){
+      
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VA/(A*(1+r))
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r1
+        r2=r
+        
+      } else {
+        r2=r2  
+        r1=r
+        
+      }
+      diferenciaTasa=r-r0
+      r0=r
+      cat("\f")
+      print(paste0("Iteración de bisección: ",iteraciones))
+    }
+    
+  } else {
+    # Cuando la r inicial es mayor a lo deseado:  
+    # Algoritmo de bajada de tasa:
+    iteraciones=0
+    r0=r
+    while (diferencia>0){
+      r2=r 
+      iteraciones=iteraciones+1  
+      r=r/1.01
+      
+      izquierda=VA/(A*(1+r))
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      cat("\f")
+      print(paste0("Iteración de baja de tasa:",iteraciones))
+      
+      r1=r
+      
+    }  
+    
+    
+    #diferencia1=diferencia
+    diferenciaTasa=r-r0
+    r0=r
+    
+    diferencia=umbral    
+    # algoritmo de la bisección:      
+    while (abs(diferenciaTasa)>umbral){
+      iteraciones=iteraciones+1
+      r=(r1+r2)/2    
+      
+      izquierda=VA/(A*(1+r))
+      derecha=(1-((1+r)^-Tpers))/r
+      diferencia=izquierda-derecha
+      
+      if (diferencia>0){
+        r1=r
+        r2=r2
+        
+      } else {
+        r2=r  
+        r1=r1
+        
+      }
+      
+      diferenciaTasa=r-r0
+      r0=r
+      
+      cat("\f")
+      print(paste0("Iteración de biseccción:",iteraciones))
+    }
+    
+    
+    
+  }
+  
+  
+  
+  # Genera objeto de salida:
+  objetoTasa=list(Iteraciones=iteraciones,tasa=r)
+  
+  cat("\f")
+  print(paste0("Total de iteraciones realizadas: ",iteraciones))
+  
+  return(objetoTasa) 
+  
+}
