@@ -70,19 +70,19 @@ Para el siguiente ejemplo:
 Se realizan pagos quincenales de $900 al final de cada quincena en una cuenta de ahorro durante 6 años bajo una anualidad vencida. Si al final del plazo se acumulan $120,000, ¿cuál es la tasa de interés anual compuesta quincenalmente?
 Donde:
 $VF$=120,000
-$n$=4.5%
+$t$=4.5%
 $A$=900
 
 Se realizan los calculos:
 ```(r)
-# creamos objetos con valores de entrada:
-VF=120000
-noPeriodos=144
-anualidad=900
-#Calculamos el numero de periodos
-tasa=r(ValorFuturo=VF,n=noPeriodos,A=anualidad)
-#Imprimimos el resultado
-tasa
+# Creamos objetos con valores de entrada
+VFt=102009.1
+Tp=60
+A=1500
+# calculamos la tasa del periodo
+r=TasaPer(VFt=VFt,Tp=Tp,A=A)
+# imprimimos el resultado
+r
 ```
 ## Valor actual
 
