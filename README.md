@@ -153,7 +153,7 @@ VAt=3000
 TpVA=48
 Ava=66.41
 # calculamos la tasa del periodo
-rVA=TasaPVA(VAt=VAt,TpVA=TpVA,Ava=Ava)
+rVA=TasaPeriodoVA(VAt=VAt,TpVA=TpVA,Ava=Ava)
 # imprimimos el resultado
 rVA
 ```
