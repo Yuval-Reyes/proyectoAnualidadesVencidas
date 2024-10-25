@@ -80,7 +80,7 @@ VFt=120000
 Tp=0.045
 A=900
 # calculamos la tasa del periodo
-r=TasaPer(VFt=VFt,Tp=Tp,A=A)
+r=TasaP(VFt=VFt,Tp=Tp,A=A)
 # imprimimos el resultado
 r
 ```
