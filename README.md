@@ -99,9 +99,9 @@ TpVA=48
 rVA=0.12/TpVA
 Ava=66.41
 # calculamos el valor actual
-VAt=ValorActual(rVA=rVA,TpVA=TpVA,Ava=Ava)
+VA=ValorActual(rVA=rVA,TpVA=TpVA,Ava=Ava)
 # imprimimos el resultado
-VAt
+VA
 ```
 ### Anualidad, conociendo valor actual, tasa del periodo y número de pagos.
 usando el mismo ejemplo anterior podemos seguir con la demostracion
@@ -153,7 +153,7 @@ VA=3000
 TpVA=48
 Ava=66.41
 # calculamos la tasa del periodo
-rVA=TasaPeriodoVA(VA=VA,TpVA=TpVA,Ava=Ava)
+rVA=TasaPerVA(VA=VA,TpVA=TpVA,Ava=Ava)
 # imprimimos el resultado
 rVA
 ```
