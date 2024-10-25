@@ -35,14 +35,15 @@ $n$=180 meses
 
 Se realizan los calculos:
 ```(r)
-# creamos objetos con valores de entrada:
-VF=200000
-tasa=0.03
-noPeriodos=180
-#Calculamos la anualidad
-anualidad=A(ValorFuturo=VF,r=tasa,n=noPeriodos)
-#Imprimimos el resultado
-anualidad
+# Creamos objetos con valores de entrada
+VFt=200000
+i=0.03
+r=0.03/12
+Tp=180
+# calculamos el valor de la anualidad
+A=Anualidad(VFt=VFt,r=r,Tp=Tp)
+# imprimimos el resultado
+A
 ```
 ### Número de pagos o plazo, conociendo valor futuro, número de pagos y tasa del periodo.
 Para este ejemplo tenemos el enunciado:
